@@ -10,13 +10,16 @@ import logo from '../assets/img_1.png';
       <a href="*"><i class="fa-brands fa-youtube social-icon yt"></i></a>
       <a href="*"><i class="fa-brands fa-telegram social-icon tg"></i></a>
     </div>
-    <img :src="logo">
+    <img :src="logo" alt="">
     </div>
     <p>Все права защищены</p>
   </footer>
 </template>
 
 <style scoped>
+footer{
+  margin-top: 20px;
+}
 .top {
   display: flex;
   justify-content: space-between;
@@ -48,5 +51,17 @@ p {
   color: gray;
   font-size: 16px;
   margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  img {
+    width: 120px;
+    height: auto;
+  }
+}
+@media (max-width: 768px) {
+  .social-icon{
+    font-size: 22px;
+  }
 }
 </style>

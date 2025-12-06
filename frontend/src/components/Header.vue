@@ -24,14 +24,14 @@ watch(route, () => {
 <header>
   <img :src="logo" alt="">
   <div>
-    <router-link to="/"><a>Главная</a></router-link>
+    <router-link to="/">Главная</router-link>
     <span v-if="isAuth">
-      <router-link to="/profile"><a>Профиль</a></router-link>
-      <router-link to="/link"><a>Ссылки</a></router-link>
+      <router-link to="/profile">Профиль</router-link>
+      <router-link to="/link">Ссылки</router-link>
     </span>
     <span v-else>
-      <router-link to="/login"><a>Войти</a></router-link>
-      <router-link to="/register"><a>Регистрация</a></router-link>
+      <router-link to="/login">Войти</router-link>
+      <router-link to="/register">Регистрация</router-link>
     </span>
   </div>
 
@@ -43,21 +43,30 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 20px;
 }
 a {
+  display: inline-block;
   color: #707070;
   border: none;
   font-size: 20px;
   text-decoration: none;
+  transition: all 0.3s ease;
+  margin-left: 20px;
 }
 a:hover{
-  color: #53a2da;
+  color: #0f172a;
+  transform: scale(1.1)
 }
-a:not(:last-child) {
-  margin-right: 20px;
-}
+
 img {
-  width: 130px;
+  width: 90px;
   height: auto;
+}
+@media (max-width: 768px) {
+  img {
+    width: 60px;
+    height: auto;
+  }
 }
 </style>

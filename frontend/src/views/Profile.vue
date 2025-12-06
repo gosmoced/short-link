@@ -95,6 +95,9 @@ const updateProfile = async () => {
       }
 
       error.value = errorMessages.join(' ')
+      setTimeout(()=>{
+      error.value=''
+      },3000)
     }
   } finally {
     isLoading.value = false
@@ -104,18 +107,17 @@ const exitProfile = () => {
   localStorage.removeItem('access_token')
   router.push('/login')
 }
-
 </script>
 
 <template>
-  <div class="profile">
+  <div class="profile fade-in">
     <h1>Кабинет пользователя</h1>
     <p><b>@{{login}}</b></p>
     <p><b>Email: </b>{{email}}</p>
     <button @click="exitProfile()" class="logout">Выйти из аккаунта</button>
   </div>
 
-  <div class="update-form">
+  <div class="update-form fade-in">
     <h2>Изменить данные пользователя</h2>
     <form @submit.prevent="updateProfile">
       <label for="login">Имя пользователя:</label>
@@ -134,22 +136,38 @@ const exitProfile = () => {
 </template>
 
 <style scoped>
-h1 {
-  margin-bottom: 30px;
-}
 h1, h2 {
   text-align: center;
+  background: #0f172a;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow:
+    1px 1px 1px rgba(255, 255, 255, 0.8),
+    -1px -1px 1px rgba(0, 0, 0, 0.18);
+}
+h2 {
+  margin-top: 30px;
+}
+h1 {
+  margin-bottom: 30px;
 }
 .update-form, .profile {
   width: 50%;
   margin: 0 25%;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
 }
 .profile {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 40px;
+  margin-bottom: 10px;
 }
 label{
   display: inline-block;
@@ -160,22 +178,37 @@ label{
 input {
   width: 100%;
   padding: 10px 10px;
-  border-radius: 5px;
   margin-top: 10px;
-  border: 2px solid #b5b4b4;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #e2e8f0;
+  font-size: 1rem;
+  color: #334155;
+  outline: none;
+  transition: all 0.3s ease;
+}
+input:focus {
+  border-color: #94a3b8;
+  box-shadow: 0 0 0 4px rgba(226, 232, 240, 0.6);
+  background: #ffffff;
 }
 button{
   color: white;
-  background: orangered;
   padding: 10px 20px;
   margin-top: 20px;
   border: none;
   border-radius: 5px;
   font-size: 15px;
   cursor: pointer;
+  font-weight: bold;
+  background: #0f172a;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
+  transition: all 0.3s ease;
 }
 button:hover {
-  background: #ff7941;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.3);
+  background: #1e293b;
 }
 p {
   color: #555555;
@@ -190,5 +223,25 @@ span {
   color: #e30000;
   display: block;
   opacity: 75%;
+  margin-top: 10px;
+}
+.fade-in {
+  animation: fadeIn 0.8s ease-out;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (max-width: 768px) {
+  .profile{
+    width: 90%;
+    margin: 0 auto;
+  }
+}
+@media (max-width: 768px) {
+  .update-form{
+    width: 90%;
+    margin: 0 auto;
+  }
 }
 </style>

@@ -3,8 +3,6 @@ import {ref, onMounted} from "vue";
 import {useRouter} from "vue-router";
 import axios from "axios";
 
-const url = ref('')
-const title = ref('')
 const error = ref('')
 const links = ref([])
 const router = useRouter()
@@ -32,23 +30,6 @@ const fetchLinks = async () => {
   }
 }
 
-const CreateLink = async () => {
-  const token = localStorage.getItem('access_token')
-  try {
-    await axios.post('http://127.0.0.1:8000/api/create/', {
-      url : url.value,
-      title: title.value
-    }, {headers: {
-      'Authorization': `Bearer ${token}`
-      }} )
-    await fetchLinks()
-    title.value = ''
-    url.value = ''
-  }catch(err){
-    error.value = 'Ошибка создания'
-  }
-}
-
 const deleteLink =  async (id) => {
   const token = localStorage.getItem('access_token')
 
@@ -64,23 +45,14 @@ const deleteLink =  async (id) => {
   }
 }
 
+setTimeout(()=>{
+  error.value = ''
+},3000)
 </script>
 
-
 <template>
-  <div>
-    <h1>Создание ссылок</h1>
-    <form @submit.prevent="CreateLink" class="get-form">
-      <label for="title">Название:</label>
-      <input v-model="title" id="title">
-      <label for="url">URL:</label>
-      <input v-model="url" type="url" id="url">
-      <span class="error">{{ error }}</span>
-      <button>Сохранить</button>
-    </form>
-  </div>
-  <div v-if="links.length !== 0" class="view-link">
-    <h2>Доступные ссылки</h2>
+  <div v-if="links.length !== 0" class="view-link fade-in">
+    <h1>Доступные ссылки</h1>
     <div v-for="link in links" :key="link.id" class="link-wrapper">
       <p class="link">Ссылка - <a :href='link.url'>/link/{{ link.title }}</a></p>
       <button @click="deleteLink(link.id)" class="delete">❌</button>
@@ -92,18 +64,30 @@ const deleteLink =  async (id) => {
 </template>
 
 <style scoped>
-h1, h2 {
+h1 {
   text-align: center;
+  background: #0f172a;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow:
+    1px 1px 1px rgba(255, 255, 255, 0.8),
+    -1px -1px 1px rgba(0, 0, 0, 0.18);
+  margin-bottom: 30px;
 }
-h2 {
-  margin-bottom: 20px;
-}
-.get-form, .view-link {
+
+.view-link {
   width: 50%;
   margin: 0 25%;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
 }
-.get-form {
-  margin-bottom: 40px;
+.get-form{
+  margin-bottom: 10px;
 }
 label{
   display: inline-block;
@@ -114,22 +98,37 @@ label{
 input {
   width: 100%;
   padding: 10px 10px;
-  border-radius: 5px;
   margin-top: 10px;
-  border: 2px solid #b5b4b4;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid #e2e8f0;
+  font-size: 1rem;
+  color: #334155;
+  outline: none;
+  transition: all 0.3s ease;
+}
+input:focus {
+  border-color: #94a3b8;
+  box-shadow: 0 0 0 4px rgba(226, 232, 240, 0.6);
+  background: #ffffff;
 }
 button:not(.delete){
   color: white;
-  background: orangered;
   padding: 10px 20px;
   margin-top: 20px;
   border: none;
   border-radius: 5px;
   font-size: 15px;
   cursor: pointer;
+  font-weight: bold;
+  background: #0f172a;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
+  transition: all 0.3s ease;
 }
 button:not(.delete):hover {
-  background: #ff7941;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.3);
+  background: #1e293b;
 }
 .delete{
   background: none;
@@ -144,7 +143,6 @@ p:not(.link) {
   margin-top: 30px;
 }
 p a {
-  color: orangered;
   text-decoration: none;
 }
 span {
@@ -152,11 +150,27 @@ span {
   color: #e30000;
   display: block;
   opacity: 75%;
+  margin-top: 10px;
 }
 .link-wrapper {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px 0;
+}
+
+.fade-in {
+  animation: fadeIn 0.8s ease-out;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  .view-link{
+    width: 90%;
+    margin: 0 auto;
+  }
 }
 </style>
