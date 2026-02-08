@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import axios from "axios";
+import api from "@/api.js";
 
 const username = ref('')
 const password = ref('')
@@ -10,7 +10,7 @@ const router = useRouter()
 
 const handleLogin = async () => {
   try{
-    const response = await axios.post('http://127.0.0.1:8000/auth/jwt/create/', {username : username.value, password : password.value})
+    const response = await api.post('/auth/jwt/create/', {username : username.value, password : password.value})
     localStorage.setItem('access_token', response.data.access)
     router.push('/')
   } catch (err){

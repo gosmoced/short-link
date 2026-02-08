@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import axios from 'axios'
 import { useRouter } from 'vue-router'
+import api from "@/api.js";
 
 const router = useRouter()
 const isAuth = ref(false)
@@ -17,7 +17,7 @@ onMounted(() => {
 const CreateLink = async () => {
   const token = localStorage.getItem('access_token')
   try {
-    await axios.post('http://127.0.0.1:8000/api/create/', {
+    await api.post('/api/create/', {
       url : url.value,
       title: title.value
     }, {headers: {

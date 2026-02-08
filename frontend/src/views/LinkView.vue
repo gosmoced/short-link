@@ -1,11 +1,14 @@
 <script setup>
 import {ref, onMounted} from "vue";
 import {useRouter} from "vue-router";
-import axios from "axios";
+import api from "@/api.js";
 
 const error = ref('')
 const links = ref([])
 const router = useRouter()
+const siteUrl = import.meta.env.DEV
+  ? 'http://127.0.0.1:8000'
+  : 'https://gosmoced.pythonanywhere.com';
 
 onMounted(() => {
   const token = localStorage.getItem('access_token')
@@ -19,7 +22,7 @@ onMounted(() => {
 const fetchLinks = async () => {
   const token = localStorage.getItem('access_token')
   try {
-    const response = await axios.get('http://127.0.0.1:8000/api/get-link/', {
+    const response = await api.get('/api/get-link/', {
       headers: {
         'Authorization' : `Bearer ${token}`
       }
@@ -34,7 +37,7 @@ const deleteLink =  async (id) => {
   const token = localStorage.getItem('access_token')
 
   try {
-    await axios.delete(`http://127.0.0.1:8000/api/delete-link/${id}/`, {
+    await api.delete(`/api/delete-link/${id}/`, {
       headers: {
         'Authorization' : `Bearer ${token}`
       }
@@ -54,7 +57,7 @@ setTimeout(()=>{
   <div v-if="links.length !== 0" class="view-link fade-in">
     <h1>Доступные ссылки</h1>
     <div v-for="link in links" :key="link.id" class="link-wrapper">
-      <p class="link">Ссылка - <a :href='`http://127.0.0.1:8000/link/${link.title}`' target="_blank">/link/{{ link.title }}</a><span class="click">Click: {{ link.clicks }}</span></p>
+      <p class="link">Ссылка - <a :href="`${siteUrl}/link/${link.title}`" target="_blank">/link/{{ link.title }}</a><span class="click">Click: {{ link.clicks }}</span></p>
       <button @click="deleteLink(link.id)" class="delete">❌</button>
     </div>
   </div>

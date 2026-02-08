@@ -1,7 +1,7 @@
 <script setup>
-import axios from "axios";
 import {ref} from "vue";
 import {useRouter} from "vue-router";
+import api from "@/api.js";
 
 const router = useRouter()
 
@@ -12,7 +12,7 @@ const error = ref('')
 
 const handleRegister = async () => {
   try {
-    await axios.post('http://127.0.0.1:8000/auth/users/', {'username':username.value, 'email':email.value, 'password':password.value})
+    await api.post('/auth/users/', {'username':username.value, 'email':email.value, 'password':password.value})
     router.push('/login')
   } catch (err) {
     console.error(err)

@@ -1,7 +1,7 @@
 <script setup>
 import {ref, onMounted} from "vue";
-import axios from "axios";
 import {useRouter} from "vue-router";
+import api from "@/api.js";
 
 const router = useRouter()
 const email = ref('')
@@ -23,7 +23,7 @@ onMounted(async () => {
     return
   }
   try {
-    const response = await axios.get('http://127.0.0.1:8000/auth/users/me/', {
+    const response = await api.get('/auth/users/me/', {
       headers: {
         'Authorization' : `Bearer ${token}`
       }
@@ -54,7 +54,7 @@ const updateProfile = async () => {
 
   try {
     if(newEmail.value !== email.value){
-      const response = await axios.patch('http://127.0.0.1:8000/auth/users/me/', {
+      const response = await api.patch('/auth/users/me/', {
       email: newEmail.value},
          {
       headers: {
@@ -68,7 +68,7 @@ const updateProfile = async () => {
         error.value = 'Для смены логина требуется ввести пароль.'
         return
       }
-      await axios.post('http://127.0.0.1:8000/auth/users/set_username/', {
+      await api.post('/auth/users/set_username/', {
           new_username: newUsername.value,
           current_password: Password.value},
             {headers: {
