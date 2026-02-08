@@ -152,10 +152,10 @@ h1 {
   margin-bottom: 30px;
 }
 .update-form, .profile {
-  width: 50%;
-  margin: 0 25%;
+  max-width: 500px;
+  margin: 0 auto;
   padding: 40px;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);
   border-radius: 20px;
@@ -231,17 +231,5 @@ span {
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
-}
-@media (max-width: 768px) {
-  .profile{
-    width: 90%;
-    margin: 0 auto;
-  }
-}
-@media (max-width: 768px) {
-  .update-form{
-    width: 90%;
-    margin: 0 auto;
-  }
 }
 </style>

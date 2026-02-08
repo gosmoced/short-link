@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from shortlink.views import CreateLink, GetLink, DeleteLink
+from shortlink.views import CreateLink, GetLink, DeleteLink, redirect_link
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('djoser.urls')),
@@ -8,4 +8,5 @@ urlpatterns = [
     path('api/create/', CreateLink.as_view()),
     path('api/get-link/', GetLink.as_view()),
     path('api/delete-link/<int:pk>/', DeleteLink.as_view()),
+    path('link/<str:incoming_title>/', redirect_link),
 ]

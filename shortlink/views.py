@@ -1,10 +1,12 @@
-from django.shortcuts import get_object_or_404
+from django.shortcuts import redirect, get_object_or_404
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import LinkSerializer
+from django.db.models import F
 from .models import Link
+
 
 
 class CreateLink(APIView):
@@ -26,8 +28,13 @@ class GetLink(APIView):
 
 class DeleteLink(APIView):
     permission_classes = (IsAuthenticated,)
-
     def delete(self, request, pk):
         link = get_object_or_404(Link, pk=pk, user=request.user)
         link.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+def redirect_link(request, incoming_title):
+    link = get_object_or_404(Link, title=incoming_title)
+    Link.objects.filter(pk=link.pk).update(clicks=F('clicks') + 1)
+    return redirect(link.url)

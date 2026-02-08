@@ -99,10 +99,11 @@ h1 {
     -1px -1px 1px rgba(0, 0, 0, 0.18);
 }
 .get-form {
-  width: 50%;
-  margin: 0 25%;
+  max-width: 500px;
+  width: 100%;
+  margin: 0 auto;
   padding: 40px;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);
   border-radius: 20px;
@@ -245,13 +246,6 @@ input:focus {
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
-}
-
-@media (max-width: 768px) {
-  .get-form {
-    width: 90%;
-    margin: 0 auto;
-  }
 }
 @media (max-width: 768px) {
   .hero-title { font-size: 2rem; }
