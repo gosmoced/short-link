@@ -57,7 +57,7 @@ If you want to run this project on your machine:
 
 ### 1. Clone the repository
 ```bash
-git clone [ВСТАВИТЬ ССЫЛКУ НА ТВОЙ GITHUB РЕПОЗИТОРИЙ]
+git clone [https://github.com/gosmoced/short-link]
 ### 2. Backend Setup
 python -m venv venv
 pip install -r requirements.txt
