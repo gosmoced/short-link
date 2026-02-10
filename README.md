@@ -1,8 +1,6 @@
 # ✂️ ShortLink - Fullstack URL Shortener
 A modern full-stack URL shortening service with detailed analytics and secure authentication. Built to demonstrate proficiency in **Django REST Framework** and **Vue.js 3 (Composition API)**.
 
-* 🚀 **Deployment:** [View Website on Vercel](https://short-link-gilt.vercel.app/)
-
 ---
 
 ## 📸 Dashboard & Analytics
@@ -11,16 +9,23 @@ A modern full-stack URL shortening service with detailed analytics and secure au
 
 *Real-time analytics showing visitor IP addresses and timestamps for each link.*
 
+* 🚀 **Deployment:** [View Website on Vercel](https://short-link-gilt.vercel.app/)
+
 ---
 
 ## ✨ Key Features
 
 - **🚀 URL Shortening:** Instantly convert long URLs into short, shareable links.
-- **📊 Advanced Analytics:** Track **who** clicked your links (IP Address) and **when** (Timestamp).
-- **🔐 Secure Authentication:** Full Login/Registration system using **JWT (JSON Web Tokens)**.
+- **📊 Analytics & Tracking:**
+  - **Click Counter:** See the total number of visits for each link.
+  - **Visitor Details:** Track **who** clicked (IP Address) and **when** (Timestamp).
+- **👤 User Account Management:**
+  - Secure **Registration & Login** via JWT.
+  - Ability to **change password** and **update profile details** (username/email).
 - **📱 Smart UI:** "Accordion" style interface allows viewing history for specific links without clutter.
-- **☁️ Deployed:** - **Frontend:** Hosted on Vercel for high performance.
-  - **Backend:** Hosted on PythonAnywhere with SQLite.
+- **☁️ Deployed:**
+  - **Frontend:** Hosted on Vercel for high performance.
+  - **Backend:** Hosted on PythonAnywhere.
 
 ---
 
@@ -44,7 +49,8 @@ A modern full-stack URL shortening service with detailed analytics and secure au
 
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
-| **POST** | `/auth/jwt/create/` | Login (Obtain JWT Token) |
+| **POST** | `/auth/users/` | Register a new user (Djoser) |
+| **POST** | `/auth/jwt/create/` | Login / Get Token (JWT) |
 | **POST** | `/api/create/` | Create a new short link |
 | **GET** | `/api/get-link/` | Get user's links with analytics |
 | **DELETE** | `/api/delete-link/<id>/` | Delete a link by ID |
