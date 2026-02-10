@@ -22,16 +22,31 @@ onMounted(() => {
 const fetchLinks = async () => {
   const token = localStorage.getItem('access_token')
   try {
-    const response = await api.get('/api/get-link/', {
+    const response = await api.get('api/get-link/', {
       headers: {
         'Authorization' : `Bearer ${token}`
       }
     })
-    links.value = response.data
+    // Добавляем поле showHistory каждому объекту, чтобы Vue мог его отслеживать
+    links.value = response.data.map(link => ({
+      ...link,
+      showHistory: false
+    }))
   } catch (err){
-    error.value = ''
+    error.value = 'Ошибка загрузки ссылок'
   }
 }
+const toggleHistory = (targetLink) => {
+  links.value.forEach(link => {
+    if (link.id === targetLink.id) {
+      link.showHistory = !link.showHistory
+    }
+    else {
+      link.showHistory = false
+    }
+  })
+}
+
 
 const deleteLink =  async (id) => {
   const token = localStorage.getItem('access_token')
@@ -54,16 +69,45 @@ setTimeout(()=>{
 </script>
 
 <template>
+<section>
   <div v-if="links.length !== 0" class="view-link fade-in">
     <h1>Доступные ссылки</h1>
+
+    <p><span>{{ error }}</span></p>
+
     <div v-for="link in links" :key="link.id" class="link-wrapper">
-      <p class="link">Ссылка - <a :href="`${siteUrl}/link/${link.title}`" target="_blank">/link/{{ link.title }}</a><span class="click">Click: {{ link.clicks }}</span></p>
-      <button @click="deleteLink(link.id)" class="delete">❌</button>
+      <p class="link">
+        Ссылка -
+        <a :href="`${siteUrl}/link/${link.title}`" target="_blank">{{ link.title }}</a>
+      </p>
+
+      <div>
+        <button @click="toggleHistory(link)" class="btn-info">
+        {{ link.showHistory ? 'Close' : 'Info' }}
+        </button>
+        <button @click="deleteLink(link.id)" class="btn-delete">X</button>
+      </div>
+
     </div>
   </div>
+
   <div v-else>
     <h1>У вас пока нет ссылок</h1>
   </div>
+
+  <div v-for="click in links">
+    <div v-if="click.showHistory === true" class="info">
+      <p>Info: {{click.title}}, <span class="click"> Click: {{ click.clicks }}</span></p>
+      <p v-if="click.recent_clicks.length === 0 || !click.recent_clicks">
+          На ссылку никто не нажимал
+      </p>
+      <div v-else v-for="info in click.recent_clicks" class="history-item">
+        <p>IP:{{info.ip_address}}
+          TIME: {{ new Date(info.created_at).toLocaleString('ru-RU') }}</p>
+      </div>
+    </div>
+  </div>
+</section>
 </template>
 
 <style scoped>
@@ -88,11 +132,6 @@ h1 {
   border: 1px solid rgba(255, 255, 255, 0.3);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
 }
-.delete{
-  background: none;
-  border: none;
-  cursor: pointer;
-}
 p {
   font-size: 18px;
   color: #707070;
@@ -102,10 +141,6 @@ p:not(.link) {
 }
 p a {
   text-decoration: none;
-}
-.click {
-  margin-left: 15px;
-  color: #0f172a;
 }
 .link-wrapper {
   display: flex;
@@ -120,5 +155,47 @@ p a {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
-
+.info{
+  text-align: center;
+  padding-bottom: 25px;
+  padding-left: 10px;
+  padding-right: 10px;
+  max-width: 400px;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+}
+.info p {
+  color: black;
+}
+.btn-info, .btn-delete{
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  font-weight: bold;
+  background: #0f172a;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
+  transition: all 0.3s ease;
+}
+.btn-delete{
+  background: darkred;
+  margin-left: 5px;
+}
+.history-item {
+  border-bottom: 1px solid rgba(112, 112, 112, 0.6);
+  width: 98%;
+  margin: 0 auto;
+}
+.history-item:last-child {
+  border-bottom: none;
+}
 </style>

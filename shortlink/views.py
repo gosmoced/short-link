@@ -4,9 +4,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import LinkSerializer
-from django.db.models import F
-from .models import Link
-
+from .models import Link, Click
+from django.http import HttpResponse
 
 
 class CreateLink(APIView):
@@ -34,7 +33,28 @@ class DeleteLink(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
+
 def redirect_link(request, incoming_title):
-    link = get_object_or_404(Link, title=incoming_title)
-    Link.objects.filter(pk=link.pk).update(clicks=F('clicks') + 1)
-    return redirect(link.url)
+    try:
+        link = Link.objects.get(title=incoming_title)
+
+        Click.objects.create(
+            link=link,
+            ip_address=get_client_ip(request),
+            user_agent=request.META.get('HTTP_USER_AGENT', '')[:500]
+        )
+
+        link.clicks += 1
+        link.save()
+
+        return redirect(link.url)
+    except Link.DoesNotExist:
+        return HttpResponse("Ссылка не найдена", status=404)
+
