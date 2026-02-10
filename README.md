@@ -1,7 +1,7 @@
 # ✂️ ShortLink - Fullstack URL Shortener
 A modern full-stack URL shortening service with detailed analytics and secure authentication. Built to demonstrate proficiency in **Django REST Framework** and **Vue.js 3 (Composition API)**.
 
-🔗 **Live Demo:**  (https://short-link-gilt.vercel.app/)
+* 🚀 **Deployment:** [View Website on Vercel](https://short-link-gilt.vercel.app/)
 
 ---
 
