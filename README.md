@@ -58,12 +58,18 @@ If you want to run this project on your machine:
 ### 1. Clone the repository
 ```bash
 git clone [https://github.com/gosmoced/short-link]
+```
 ### 2. Backend Setup
+```bash
 python -m venv venv
 pip install -r requirements.txt
 python manage.py migrate
 python manage.py runserver
+```
 ### 3. Frontend Setup
+```bash
 cd frontend
 npm install
 npm run dev
+```
+
