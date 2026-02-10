@@ -72,4 +72,8 @@ cd frontend
 npm install
 npm run dev
 ```
+## 📞 Contact
+Created by **[gosmoced]**
+* Telegram: [@gosmoced]
+* Email: [danyliuk.erik@gmail.com]
 
