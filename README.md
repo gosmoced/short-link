@@ -5,7 +5,9 @@ A modern full-stack URL shortening service with detailed analytics and secure au
 
 ## 📸 Dashboard & Analytics
 
-<img width="1919" height="1023" alt="Снимок экрана 2026-02-10 152517" src="https://github.com/user-attachments/assets/83854f51-133b-43c8-b8a3-ce9ea3706103" />
+<img width="1912" height="1033" alt="Снимок экрана 2026-02-13 144102" src="https://github.com/user-attachments/assets/0fd793d0-b7b2-46c9-b1ce-0ad7cf017b6a" />
+<img width="1918" height="1032" alt="Снимок экрана 2026-02-13 144037" src="https://github.com/user-attachments/assets/c3e55146-8794-4049-b351-b6b26ad1cb82" />
+
 
 *Real-time analytics showing visitor IP addresses and timestamps for each link.*
 
