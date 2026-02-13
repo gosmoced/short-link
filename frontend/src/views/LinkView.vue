@@ -48,6 +48,17 @@ const toggleHistory = (targetLink) => {
 }
 
 
+const copyLink = (title) => {
+  const url = `${siteUrl}/link/${title}`
+  navigator.clipboard.writeText(url)
+    .then(() => {
+       alert('Ссылка скопирована!')
+    })
+    .catch(err => {
+      console.error('Failed to copy: ', err)
+    })
+}
+
 const deleteLink =  async (id) => {
   const token = localStorage.getItem('access_token')
 
@@ -82,6 +93,7 @@ setTimeout(()=>{
       </p>
 
       <div>
+        <button @click="copyLink(link.title)" class="btn-copy">Copy</button>
         <button @click="toggleHistory(link)" class="btn-info">
         {{ link.showHistory ? 'Close' : 'Info' }}
         </button>
@@ -174,7 +186,7 @@ p a {
 .info p {
   color: black;
 }
-.btn-info, .btn-delete{
+.btn-info, .btn-delete, .btn-copy{
   color: white;
   padding: 5px 10px;
   border: none;
@@ -189,6 +201,9 @@ p a {
 .btn-delete{
   background: darkred;
   margin-left: 5px;
+}
+.btn-copy{
+  margin-right: 5px;
 }
 .history-item {
   border-bottom: 1px solid rgba(112, 112, 112, 0.6);
