@@ -8,5 +8,5 @@ urlpatterns = [
     path('api/create/', CreateLink.as_view()),
     path('api/get-link/', GetLink.as_view()),
     path('api/delete-link/<int:pk>/', DeleteLink.as_view()),
-    path('link/<str:incoming_title>/', redirect_link),
+    path('link/<str:username>/<str:incoming_title>/', redirect_link),
 ]

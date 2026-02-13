@@ -41,9 +41,9 @@ def get_client_ip(request):
         ip = request.META.get('REMOTE_ADDR')
     return ip
 
-def redirect_link(request, incoming_title):
+def redirect_link(request, incoming_title, username):
     try:
-        link = Link.objects.get(title=incoming_title)
+        link = Link.objects.get(title=incoming_title, user__username=username)
 
         Click.objects.create(
             link=link,

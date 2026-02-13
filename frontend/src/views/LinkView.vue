@@ -6,15 +6,27 @@ import api from "@/api.js";
 const error = ref('')
 const links = ref([])
 const router = useRouter()
+const username = ref('')
 const siteUrl = import.meta.env.DEV
   ? 'http://127.0.0.1:8000'
   : 'https://gosmoced.pythonanywhere.com';
 
-onMounted(() => {
+onMounted(async () => {
   const token = localStorage.getItem('access_token')
   if (!token) {
     router.push('/login')
     return
+  }
+  try {
+    const response = await api.get('/auth/users/me', {
+      headers: {
+        'Authorization' : `Bearer ${token}`
+      }
+    })
+    username.value = response.data.username
+  } catch (err){
+    console.log(err)
+    error.value = err
   }
   fetchLinks()
 })
@@ -49,7 +61,7 @@ const toggleHistory = (targetLink) => {
 
 
 const copyLink = (title) => {
-  const url = `${siteUrl}/link/${title}`
+  const url = `${siteUrl}/link/${username.value}/${title}`
   navigator.clipboard.writeText(url)
     .then(() => {
        alert('Ссылка скопирована!')
@@ -82,14 +94,14 @@ setTimeout(()=>{
 <template>
 <section>
   <div v-if="links.length !== 0" class="view-link fade-in">
-    <h1>Доступные ссылки</h1>
+    <h1>Available links</h1>
 
     <p><span>{{ error }}</span></p>
 
     <div v-for="link in links" :key="link.id" class="link-wrapper">
       <p class="link">
-        Ссылка -
-        <a :href="`${siteUrl}/link/${link.title}`" target="_blank">{{ link.title }}</a>
+        Link -
+        <a :href="`${siteUrl}/link/${username}/${link.title}`" target="_blank">{{ link.title }}</a>
       </p>
 
       <div>
@@ -104,14 +116,14 @@ setTimeout(()=>{
   </div>
 
   <div v-else>
-    <h1>У вас пока нет ссылок</h1>
+    <h1>You don't have any links yet</h1>
   </div>
 
   <div v-for="click in links">
     <div v-if="click.showHistory === true" class="info">
       <p>Info: {{click.title}}, <span class="click"> Click: {{ click.clicks }}</span></p>
       <p v-if="click.recent_clicks.length === 0 || !click.recent_clicks">
-          На ссылку никто не нажимал
+          No one clicked the link
       </p>
       <div v-else v-for="info in click.recent_clicks" class="history-item">
         <p>IP:{{info.ip_address}}
@@ -212,5 +224,10 @@ p a {
 }
 .history-item:last-child {
   border-bottom: none;
+}
+@media (max-width: 426px){
+  .view-link{
+    padding: 40px 15px;
+  }
 }
 </style>

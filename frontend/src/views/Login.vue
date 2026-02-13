@@ -26,20 +26,31 @@ const handleLogin = async () => {
 
 <template>
 <div class="login-form glass-card fade-in">
-  <h1 class="title-gradient">Авторизация</h1>
+  <h1 class="title-gradient">Login</h1>
   <form @submit.prevent="handleLogin">
-    <label for="username">Введите логин:</label>
+    <label for="username">Enter username:</label>
     <input v-model="username" type="text" placeholder="Enter login" required id="username">
-    <label for="password">Введите пароль:</label>
+    <label for="password">Enter password:</label>
     <input v-model="password" type="password" placeholder="Enter password" required id="password">
     <span v-if='error' class="error">{{error}}</span>
-    <button type="submit">Войти</button>
-    <p>Нет аккаунта?<router-link to="/register"><a> Зарегистрироваться</a></router-link></p>
+    <button type="submit">Sign in</button>
+    <p>Don’t have an account?<router-link to="/register"><a> Sign Up</a></router-link></p>
   </form>
 </div>
 </template>
 
 <style scoped>
+.login-form {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+}
 h1 {
   text-align: center;
   background: #0f172a;
@@ -48,17 +59,6 @@ h1 {
   text-shadow:
     1px 1px 1px rgba(255, 255, 255, 0.8),
     -1px -1px 1px rgba(0, 0, 0, 0.18);
-}
-.login-form {
-  width: 50%;
-  margin: 0 25%;
-  padding: 40px;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
 }
 label{
   display: inline-block;
@@ -92,14 +92,13 @@ button{
   font-size: 15px;
   cursor: pointer;
   font-weight: bold;
-  background: #0f172a;
+  background: linear-gradient(to right, #182442, #004baf);
   box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
   transition: all 0.3s ease;
 }
 button:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(15, 23, 42, 0.3);
-  background: #1e293b;
 }
 p {
   color: #555555;
@@ -124,10 +123,4 @@ span {
   to { opacity: 1; transform: translateY(0); }
 }
 
-@media (max-width: 768px) {
-  .login-form {
-    width: 90%;
-    margin: 0 auto;
-  }
-}
 </style>

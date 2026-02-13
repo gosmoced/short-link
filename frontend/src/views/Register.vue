@@ -42,22 +42,34 @@ const handleRegister = async () => {
 </script>
 <template>
   <div class="register-form fade-in">
-    <h1 class="text-3d">Регистрация на сайте</h1>
+    <h1 class="text-3d">Registration</h1>
     <form @submit.prevent="handleRegister">
-      <label for="username">Введите логин:</label>
+      <label for="username">Enter username:</label>
       <input v-model="username" placeholder="Enter login" id="username">
-      <label for="email">Введите почту:</label>
+      <label for="email">Enter email:</label>
       <input v-model="email" type="email" placeholder="Enter email" id="email">
-      <label for="password">Введите пароль:</label>
+      <label for="password">Enter password:</label>
       <input v-model="password" type="password" placeholder="Enter password" id="password">
       <span class="error">{{error}}</span>
-      <button>Зарегистрироваться</button>
+      <button>Sign Up</button>
     </form>
-    <p>Уже зарегистрированы?<router-link to="/login"><a> Войти</a></router-link></p>
+    <p>Already registered?<router-link to="/login"><a> Sign in</a></router-link></p>
   </div>
 </template>
 
 <style scoped>
+.register-form {
+  max-width: 500px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+}
 h1 {
   text-align: center;
   background: #0f172a;
@@ -66,17 +78,6 @@ h1 {
   text-shadow:
     1px 1px 1px rgba(255, 255, 255, 0.8),
     -1px -1px 1px rgba(0, 0, 0, 0.18);
-}
-.register-form {
-  width: 50%;
-  margin: 0 25%;
-  padding: 40px;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
 }
 label{
   display: inline-block;
@@ -110,14 +111,13 @@ button{
   font-size: 15px;
   cursor: pointer;
   font-weight: bold;
-  background: #0f172a;
+  background: linear-gradient(to right, #182442, #004baf);
   box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
   transition: all 0.3s ease;
 }
 button:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(15, 23, 42, 0.3);
-  background: #1e293b;
 }
 p {
   color: #555555;
@@ -139,11 +139,5 @@ span {
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
-}
-@media (max-width: 768px) {
-  .register-form {
-    width: 90%;
-    margin: 0 auto;
-  }
 }
 </style>

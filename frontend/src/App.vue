@@ -17,16 +17,15 @@ import Footer from "@/components/Footer.vue";
 <style>
 
 .wrapper {
-  width: 70%;
+  max-width: 70%;
   margin: 0 auto;
   display: grid;
   grid-template-rows: auto 1fr auto;
   min-height: 100dvh;
 }
-@media (max-width: 768px) {
-  .wrapper {
-    width: 95%;
-    margin: 0 auto;
+@media (max-width: 525px){
+  .wrapper{
+    max-width: 90%;
   }
 }
 </style>

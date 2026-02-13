@@ -111,26 +111,26 @@ const exitProfile = () => {
 
 <template>
   <div class="profile fade-in">
-    <h1>Кабинет пользователя</h1>
+    <h1>User Dashboard</h1>
     <p><b>@{{login}}</b></p>
     <p><b>Email: </b>{{email}}</p>
-    <button @click="exitProfile()" class="logout">Выйти из аккаунта</button>
+    <button @click="exitProfile()" class="logout">Log Out</button>
   </div>
 
   <div class="update-form fade-in">
-    <h2>Изменить данные пользователя</h2>
+    <h2>Edit User Information</h2>
     <form @submit.prevent="updateProfile">
-      <label for="login">Имя пользователя:</label>
+      <label for="login">Username:</label>
       <input type="text" id="login" v-model="newUsername">
-      <label for="email">Почта:</label>
+      <label for="email">Email:</label>
       <input type="email" id="email" v-model="newEmail">
       <div v-if="PasswordVisible">
-        <label for="password">Пароль:</label>
+        <label for="password">Password:</label>
         <input type="password" id="password" v-model="Password">
       </div>
       <p class="message">{{message}}</p>
       <span>{{error}}</span>
-      <button :disabled="isLoading">{{isLoading ? 'Сохраняем...' : 'Обновить данные'}}</button>
+      <button :disabled="isLoading">{{isLoading ? 'Saving...' : 'Update Information'}}</button>
     </form>
   </div>
 </template>
@@ -201,14 +201,13 @@ button{
   font-size: 15px;
   cursor: pointer;
   font-weight: bold;
-  background: #0f172a;
+  background: linear-gradient(to right, #182442, #004baf);
   box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
   transition: all 0.3s ease;
 }
 button:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(15, 23, 42, 0.3);
-  background: #1e293b;
 }
 p {
   color: #555555;
@@ -231,5 +230,10 @@ span {
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
+}
+@media (max-width: 426px){
+  .profile{
+    padding: 40px 15px;
+  }
 }
 </style>

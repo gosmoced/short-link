@@ -1,9 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
 import api from "@/api.js";
 
-const router = useRouter()
 const isAuth = ref(false)
 const url = ref('')
 const title = ref('')
@@ -39,41 +37,42 @@ const CreateLink = async () => {
   <div class="home-container">
 
     <div v-if="isAuth" class="get-form fade-in">
-    <h1>Создание ссылок</h1>
+    <h1>Create link</h1>
     <form @submit.prevent="CreateLink">
-      <label for="title">Название:</label>
+      <label for="title">Name:</label>
       <input v-model="title" id="title">
       <label for="url">URL:</label>
       <input v-model="url" type="url" id="url">
       <span class="error">{{ error }}</span>
-      <button class="btn-save">Сохранить</button>
+      <button class="btn-save">Save</button>
     </form>
     </div>
 
     <div v-else class="hero-section fade-in">
-      <h1 class="hero-title">Управляйте своими ссылками<br>как профессионал</h1>
+      <h1 class="hero-title">Manage your links<br>like a professional</h1>
       <p class="hero-text text-3d">
-        Делайте длинные и сложные ссылки короткими, понятными и запоминающимися.
-        Идеально для соцсетей, резюме и бизнеса.
+        Turn long and complicated links into short, clear, and memorable ones.
+        Track every click with detailed insights, including IP data and precise timestamps.
+        Perfect for social media, resumes, and business.
       </p>
 
       <div class="hero-buttons">
-        <router-link to="/register" class="cta-btn">Начать бесплатно</router-link>
-        <router-link to="/login" class="secondary-btn">У меня есть аккаунт</router-link>
+        <router-link to="/register" class="cta-btn">Start for free</router-link>
+        <router-link to="/login" class="secondary-btn">I have account</router-link>
       </div>
 
       <div class="features">
         <div class="feature f-1">
           <i class="fa-solid fa-bolt"></i>
-          <span>Мгновенно</span>
+          <span>Instant</span>
         </div>
         <div class="feature f-2">
           <i class="fa-solid fa-lock"></i>
-          <span>Безопасно</span>
+          <span>Secure</span>
         </div>
         <div class="feature f-3">
           <i class="fa-solid fa-chart-simple"></i>
-          <span>Удобно</span>
+          <span>Convenient</span>
         </div>
       </div>
     </div>
@@ -142,14 +141,13 @@ input:focus {
   font-size: 15px;
   cursor: pointer;
   font-weight: bold;
-  background: #0f172a;
+  background: linear-gradient(to right, #182442, #004baf);
   box-shadow: 0 4px 12px rgba(15, 23, 42, 0.2);
   transition: all 0.3s ease;
 }
 .btn-save:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(15, 23, 42, 0.3);
-  background: #1e293b;
 }
 .error {
   font-weight: bold;
@@ -247,9 +245,9 @@ input:focus {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
-@media (max-width: 768px) {
+@media (max-width: 620px) {
   .hero-title { font-size: 2rem; }
-  .hero-buttons { flex-direction: column; }
+  .hero-buttons { flex-direction: column;}
 }
 
 

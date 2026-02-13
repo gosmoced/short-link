@@ -1,5 +1,4 @@
 <script setup>
-import logo from '../assets/img.png';
 import {ref, onMounted, watch} from "vue";
 import {useRoute} from "vue-router";
 
@@ -22,19 +21,20 @@ watch(route, () => {
 
 <template>
 <header>
-  <img :src="logo" alt="">
   <div>
-    <router-link to="/">Главная</router-link>
+    <p class="logo">ShortLink</p>
+  </div>
+  <div class="nav">
+    <router-link to="/">Home</router-link>
     <span v-if="isAuth">
-      <router-link to="/profile">Профиль</router-link>
-      <router-link to="/link">Ссылки</router-link>
+      <router-link to="/profile">Profile</router-link>
+      <router-link to="/link">Links</router-link>
     </span>
     <span v-else>
-      <router-link to="/login">Войти</router-link>
-      <router-link to="/register">Регистрация</router-link>
+      <router-link to="/login">Login</router-link>
+      <router-link to="/register">Sign up</router-link>
     </span>
   </div>
-
 </header>
 </template>
 
@@ -43,7 +43,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  padding: 30px 0;
 }
 a {
   display: inline-block;
@@ -52,21 +52,24 @@ a {
   font-size: 20px;
   text-decoration: none;
   transition: all 0.3s ease;
-  margin-left: 20px;
+  margin-left: 15px;
 }
 a:hover{
   color: #0f172a;
   transform: scale(1.1)
 }
 
-img {
-  width: 90px;
-  height: auto;
+.logo{
+  font-size: 40px;
+  font-weight: bold;
+  background: linear-gradient(to right, #182442, #004baf);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 @media (max-width: 768px) {
-  img {
-    width: 60px;
-    height: auto;
+  .logo {
+    font-size: 30px;
   }
 }
 </style>

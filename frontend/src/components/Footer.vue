@@ -9,10 +9,10 @@ import logo from '../assets/img_1.png';
       <a href="*"><i class="fa-brands fa-instagram social-icon inst"></i></a>
       <a href="*"><i class="fa-brands fa-youtube social-icon yt"></i></a>
       <a href="*"><i class="fa-brands fa-telegram social-icon tg"></i></a>
+     </div>
+    <p class="logo">Short<span>Link</span></p>
     </div>
-    <img :src="logo" alt="">
-    </div>
-    <p>Все права защищены</p>
+    <p class="rights">All rights reserved</p>
   </footer>
 </template>
 
@@ -26,9 +26,13 @@ footer{
   align-items: center;
 
 }
-img {
-  width: 180px;
-  height: auto;
+.logo{
+  font-size: 40px;
+  font-weight: bold;
+  background: linear-gradient(to right, #182442, #004baf);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 a {
   margin-right: 20px;
@@ -45,7 +49,7 @@ a {
 .inst:hover { color: #E1306C; }
 .tg:hover    { color: #0088cc; }
 .yt:hover    { color: #FF0000; }
-p {
+.rights {
   text-align: center;
   width: 100%;
   color: gray;
@@ -54,14 +58,14 @@ p {
 }
 
 @media (max-width: 768px) {
-  img {
-    width: 120px;
-    height: auto;
+  .logo {
+    font-size: 30px;
   }
 }
 @media (max-width: 768px) {
   .social-icon{
     font-size: 22px;
+    margin-right: 10px;
   }
 }
 </style>
